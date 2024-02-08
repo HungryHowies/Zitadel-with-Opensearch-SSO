@@ -162,7 +162,7 @@ Navigate to Security --> Roles.
 
  Choose "all_access", then click the Mapped Users tab.
 
- Button upper right, click "Manage mapping". Add the users some.user.
+ Button upper right, click "Manage mapping". Add the user "some.user".
  
  
  ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/e4451297-0316-4a67-bf58-47a750463041)
