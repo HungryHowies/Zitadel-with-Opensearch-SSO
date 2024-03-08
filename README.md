@@ -83,9 +83,10 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_securi
 ```
 
 Execute security script to apply any configurtion made.
+Change directory.
 
 ```
-/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh
+cd /usr/share/opensearch/plugins/opensearch-security/tools/
 ```
 Configuration files are completed, execute the security script. The command below is uploading the new configurations made  from the file config.yml.
 
