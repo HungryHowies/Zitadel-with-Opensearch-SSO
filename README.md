@@ -60,7 +60,7 @@ https://zitadle-self-hosting.com/saml/v2/metadata
 Edit Opensearch-Dashboard yaml file.
 
 ```
-vi etc/opensearch-dashboards/opensearch-dashboards.yml
+vi /etc/opensearch-dashboards/opensearch-dashboards.yml
 ```
 
 The SAML-specific configuration is done in the Security plugin, just activate SAML in your opensearch_dashboards.yml by adding the following:
