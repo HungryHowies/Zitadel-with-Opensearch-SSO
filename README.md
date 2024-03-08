@@ -90,7 +90,7 @@ Execute security script to apply any configurtion made.
 Configuration files are completed, execute the security script. The command below is uploading the new configurations made  from the file config.yml.
 
 ```
-./securityadmin.sh -f /etc/opensearch/opensearch-security/config.yml  -t authentication  -cd /etc/opensearch/opensearch-security/ -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
+./securityadmin.sh -f /etc/opensearch/opensearch-security/config.yml    -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
 ```
 
 Restart Opensearch-Dashboard.
