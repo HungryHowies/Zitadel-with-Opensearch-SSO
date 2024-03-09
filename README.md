@@ -97,7 +97,7 @@ Configuration files are completed, execute the security script. The command belo
 Restart Opensearch-Dashboard.
 
 ```
-systemctl restart opensearch-dashboard
+systemctl restart opensearch-dashboards
 ```
 
 ## Zitadel  Settings
