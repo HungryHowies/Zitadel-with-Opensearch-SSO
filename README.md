@@ -53,6 +53,21 @@ https://zitadle-self-hosting.com/saml/v2/metadata
        authentication_backend:
           type: noop
   ```
+Change the challenge flag in basic_internal_auth_domain  section from true to false.
+Example:
+```
+basic_internal_auth_domain:
+        description: "Authenticate via HTTP Basic against internal users database"
+        http_enabled: true
+        transport_enabled: true
+        order: 0
+        http_authenticator:
+          type: basic
+          challenge: false
+        authentication_backend:
+          type: intern
+```
+
   
 ##  OpenSearch Dashboards configuration
 
