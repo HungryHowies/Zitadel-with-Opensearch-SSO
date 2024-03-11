@@ -148,11 +148,10 @@ Results:
 ```
 <?xml version="1.0"?>
 <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://opensearch.domain.com:5601">
-    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol 
-    urn:oasis:names:tc:SAML:1.1:protocol">
-        <md:AssertionConsumerService 
-        Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
-        Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/acs" index="0"/>
+    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol">
+	<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/logout/" />
+<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:attrnameformat:basic</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/acs" index="0"/>
     </md:SPSSODescriptor>
 </md:EntityDescriptor>
 ```
