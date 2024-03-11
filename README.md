@@ -80,6 +80,12 @@ Edit Opensearch-Dashboard yaml file.
 vi /etc/opensearch-dashboards/opensearch_dashboards.yml
 ```
 
+Change Name on SSO button.
+
+```
+opensearch_security.ui.saml.login.buttonname: something
+```
+
 The SAML-specific configuration is done in the Security plugin, just activate SAML in your opensearch_dashboards.yml by adding the following:
 
 
