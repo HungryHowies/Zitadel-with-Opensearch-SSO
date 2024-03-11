@@ -195,6 +195,28 @@ Navigate to Security --> Roles.
  ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/f259c1a6-c060-439f-a7a3-4f2fa1b74ce8)
 
 
+ ### Opensearch Logging off with 404
+
+ When logging off,  I recieved a 404 error.
+ 
+Found the solution   [Here](https://forum.opensearch.org/t/saml-issue-on-logout/5617/16?u=gsmitt)
+
+What I did was edit the following file.
+
+```
+vi /usr/share/opensearch-dashboards/plugins/securityDashboards/server/auth/types/saml/routes.js
+```
+Commented out this line.
+
+```
+//  const redirectUrl = authInfo.sso_logout_url || this.coreSetup.http.basePath.serverBasePath || '/';
+```
+
+Added this line.
+
+```
+const redirectUrl = `${this.coreSetup.http.basePath.serverBasePath}/app/home`;
+```
 
  
 
