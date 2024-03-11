@@ -2,7 +2,7 @@
 
 ## Overview
 
- The following documentation explains the configurtions needed for OpenSearch Single sign-on (SSO) and the connection to Zitadel instance. OpenSearch node must be in Production mode, meaning you have created the certificate for "node/s, admin and CA" and ensure HTTPS is working correct. Take note this is a basic configuration setup to start SSO with Opensearch using Zitadel.
+ The following documentation explains the configurations needed for OpenSearch Single sign-on (SSO) and the connection to Zitadel instance. OpenSearch node must be in Production mode, meaning you have created the certificate for "node/s, admin and CA" and ensure HTTPS is working correct. Take note this is a basic configuration setup to start SSO with Opensearch using Zitadel.
 
 ## Prerequisite:
 * Ubuntu-22.0.4
@@ -12,7 +12,9 @@
 * Opensearch-2.11.1
 * Zitadel-v2.44.2
 
-To use SAML for authentication, configurations are needed in the **authc** section of config/opensearch-security/config.yml. SAML works solely on the HTTP layer, you do not need any authentication_backend and can set it to noop. Place all SAML-specific configuration options in config.yml file, under the section of the SAML HTTP authenticator. Ensure the order number is correct. In the example below the ORDER is set to 1. This is a basic configuration to start SSO with Opensearch && Zitadel using SAML application.
+To use SAML for authentication, configurations are needed in the **authc** section of this file  /config/opensearch-security/config.yml. SAML works solely on the HTTP layer, you do not need any authentication_backend and can set it to noop. Place all SAML-specific configuration options in config.yml file, under the section of the SAML HTTP authenticator. Ensure the order number is correct. 
+In the example below the ORDER is set to 1 and basic_internal_auth_domain is set to "0".
+
 
 NOTE: The Security plugin can read IdP metadata either from a URL or a file. In this example Im using URL.
 
@@ -22,13 +24,13 @@ Edit the file config.conf.
 vi /etc/opensearch/opensearch-security/config.yml
 ```
 
-Configure section "authc".
+### Configure section "authc"
 
 Get the exchange_key from Zitadel using th endpoint **/saml/v2/metadata** on the Zitadel instances URL. 
 Example:
 
 ```
-https://zitadle-self-hosting.com/saml/v2/metadata
+https://zitadel-self-hosting.com/saml/v2/metadata
 ```
 
   ```
