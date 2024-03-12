@@ -83,7 +83,7 @@ vi /etc/opensearch-dashboards/opensearch_dashboards.yml
 Change Name on SSO button.
 
 ```
-opensearch_security.ui.saml.login.buttonname: something
+opensearch_security.ui.saml.login.buttonname: Zitadel_SSO
 ```
 
 The SAML-specific configuration is done in the Security plugin, just activate SAML in your opensearch_dashboards.yml by adding the following:
