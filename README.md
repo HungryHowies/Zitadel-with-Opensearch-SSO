@@ -2,7 +2,7 @@
 
 ## Overview
 
- The following documentation explains the configurations needed for OpenSearch Single sign-on (SSO) and the connection to Zitadel instance. OpenSearch node must be in Production mode, meaning you have created the certificate for "node/s, admin and CA" and ensure HTTPS is working correct. Take note this is a basic configuration setup to start SSO with Opensearch using Zitadel.
+ The following documentation explains the configurations needed for OpenSearch Single sign-on (SSO) and the connection to Zitadel instance. OpenSearch node must be in Production mode, meaning you have created the certificate for "node/s, admin and CA" and ensure HTTPS is working correct. Take note this is a basic configuration setup to start SSO with OpenSearch using Zitadel.
 
 ## Prerequisite:
 * Ubuntu-22.0.4
@@ -10,15 +10,14 @@
 * Network Configured (Static address and DNS)
 * Date/Time is set
 * Opensearch-2.11.1
-* Zitadel-v2.44.2
+* Zitadel-v2.44.2 +
 
-To use SAML for authentication, configurations are needed in the **authc** section of this file  /config/opensearch-security/config.yml. SAML works solely on the HTTP layer, you do not need any authentication_backend and can set it to noop. Place all SAML-specific configuration options in config.yml file, under the section of the SAML HTTP authenticator. Ensure the order number is correct. 
-In the example below the ORDER is set to 1 and basic_internal_auth_domain is set to "0".
+To use SAML for authentication, configurations are needed in the **authc** section of this file  *vi /etc/opensearch/opensearch-security/config.yml*. Setup authentication_backend to noop. Place all SAML-specific configuration options in config.yml file, under the section *saml_auth_domain:*. Ensure the order number is correct. In the example below the saml_auth_domain ORDER is set to 1 and basic_internal_auth_domain is set to "0". The  basic_internal_auth_domain challenge is set from true to false.
 
 
 NOTE: The Security plugin can read IdP metadata either from a URL or a file. In this example Im using URL.
 
-Edit the file config.conf.
+### Edit config.conf file.
 
 ```
 vi /etc/opensearch/opensearch-security/config.yml
@@ -26,14 +25,26 @@ vi /etc/opensearch/opensearch-security/config.yml
 
 ### Configure section "authc"
 
-Get the exchange_key from Zitadel using th endpoint **/saml/v2/metadata** on the Zitadel instances URL. 
-Example:
+Get the exchange_key from Zitadel using the endpoint **/saml/v2/metadata** on the Zitadel instances URL. 
+I found the correct key in Zitadel's XML is locate here.
+
+```
+<DigestMethod xmlns="http://www.w3.org/2000/09/xmldsig#" 
+             Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<DigestValue 
+xmlns="http://www.w3.org/2000/09/xmldsig#">8nZHHDNt2HUSETHISONEQPD01eCWS8NfSsmfBwBFQ=</DigestValue>
+     </Reference>
+</SignedInfo>
+```
+
+Zitadels metadata URL location.
 
 ```
 https://zitadel-self-hosting.com/saml/v2/metadata
 ```
 
-  ```
+Add the following SAML settings in the config.yml file under *authc:*
+```
   authc:
       saml_auth_domain:
        http_enabled: true
@@ -51,12 +62,15 @@ https://zitadel-self-hosting.com/saml/v2/metadata
          kibana_url: https://opensearch.domain.com:5601
          subject_key: Email
          roles_key: Role
-         exchange_key:AwqgAwIBAgICAY4wDQYJKoZIhvcNANjA2NT1UEChMHWklUQURFTDEeM................aRt/rtADhpBbyvmTMkOupCB6.TKLX9RheYBswgWFagbC0.
+         exchange_key: AwqgAwIBAgICAY4wDQYJKoZIhvcNANjA2NT1UEChC0SOMETHING
        authentication_backend:
           type: noop
   ```
-Change the challenge flag in basic_internal_auth_domain  section from true to false.
+### basic_internal_auth_domain Section
+
+Change the challenge flag in basic_internal_auth_domain section from true to false.
 Example:
+
 ```
 basic_internal_auth_domain:
         description: "Authenticate via HTTP Basic against internal users database"
@@ -71,7 +85,7 @@ basic_internal_auth_domain:
 ```
 
   
-##  OpenSearch Dashboards configuration
+###  OpenSearch Dashboards configuration
 
 
 Edit Opensearch-Dashboard yaml file.
@@ -80,13 +94,13 @@ Edit Opensearch-Dashboard yaml file.
 vi /etc/opensearch-dashboards/opensearch_dashboards.yml
 ```
 
-Change Name on SSO button.
+(Option) Change the name on SSO button.
 
 ```
-opensearch_security.ui.saml.login.buttonname: Zitadel_SSO
+opensearch_security.ui.saml.login.buttonname: Zitadel
 ```
 
-The SAML-specific configuration is done in the Security plugin, just activate SAML in your opensearch_dashboards.yml by adding the following:
+The SAML-specific configuration is done with the  Security plugin,  activate SAML in your opensearch_dashboards.yml file by adding the following:
 
 
 ```
@@ -96,28 +110,32 @@ opensearch_security.auth.type: "saml"
 Add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list.
 
 ```
-server.xsrf.allowlist: ["/_opendistro/_security/saml/acs"]
-```
-
-If you use the logout POST binding, you also need to ad the logout endpoint to your allow list.
-
-```
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
 
-Execute security script to apply any configurtion made.
+### Execute Security Script 
+
+This will apply any configuration done from the steps above.
+
 Change directory.
 
 ```
 cd /usr/share/opensearch/plugins/opensearch-security/tools/
 ```
-Configuration files are completed, execute the security script. The command below is uploading the new configurations made  from the file config.yml.
+
+If the configuration files are completed, execute the security script. The command below will applying the new configurations made from the file config.yml.
 
 ```
-./securityadmin.sh -f /etc/opensearch/opensearch-security/config.yml    -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
+./securityadmin.sh -h opensearch.domai.com -f /etc/opensearch/opensearch-security/config.yml    -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
 ```
 
-Restart Opensearch-Dashboard.
+Restart Opensearch
+
+```
+systemctl restart opensearch
+```
+
+Restart OpenSearch-Dashboards
 
 ```
 systemctl restart opensearch-dashboards
@@ -151,13 +169,19 @@ https://opensearch.domain.com:5601/_opendistro/_security/saml/acs
 
 Results:
 
+NOTE: I did add a section for LOGOUT as shown below.
+
 ```
 <?xml version="1.0"?>
-<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://opensearch.domain.com:5601">
-    <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol">
-	<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/logout/" />
-<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:attrnameformat:basic</md:NameIDFormat>
-        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/acs" index="0"/>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"                     
+                     entityID="https://opensearch.domain.com:5601">
+    <md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                                Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/logout" />
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+        <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                                     Location="https://opensearch.domain.com:5601/_opendistro/_security/saml/acs" index="0" />
+        
     </md:SPSSODescriptor>
 </md:EntityDescriptor>
 ```
@@ -198,10 +222,12 @@ Navigate to Security --> Roles.
  ### Opensearch Logging off with 404
 
  When logging off,  I recieved a 404 error.
+
+***{"statusCode":404,"error":"Not Found","message":"Not Found"}***
  
 Found the solution   [Here](https://forum.opensearch.org/t/saml-issue-on-logout/5617/16?u=gsmitt)
 
-What I did was edit the following file.
+What I did was edit the following file. Line (308,15)
 
 ```
 vi /usr/share/opensearch-dashboards/plugins/securityDashboards/server/auth/types/saml/routes.js
