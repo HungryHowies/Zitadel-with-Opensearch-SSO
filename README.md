@@ -244,6 +244,9 @@ Added this line.
 const redirectUrl = `${this.coreSetup.http.basePath.serverBasePath}/app/home`;
 ```
 
+Results:
+
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/fc0f0851-5ac2-4010-988b-4560ce2c210d)
  
 
  
