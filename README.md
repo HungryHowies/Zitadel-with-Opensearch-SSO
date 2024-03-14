@@ -289,7 +289,7 @@ WEB UI should look like this.
  
 Found the solution   [Here](https://forum.opensearch.org/t/saml-issue-on-logout/5617/16?u=gsmitt)
 
-What I did was edit the following file. Line (308,15)
+What I did was edit the following file. Line (326,15)
 
 ```
 vi /usr/share/opensearch-dashboards/plugins/securityDashboards/server/auth/types/saml/routes.js
