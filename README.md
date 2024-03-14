@@ -168,7 +168,7 @@ Restart OpenSearch-Dashboards
 systemctl restart opensearch-dashboards
 ```
 
-## Zitadel  Settings
+### Zitadel  Settings
 
 Navigate to Organization --> Projects.
 
@@ -215,13 +215,17 @@ NOTE: I did add a section for LOGOUT as shown below.
 
 Click Continue, then create.
 
-Add the new  "Service_User" in the Authorizations section for the Project. 
 
-![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/5de876d7-bbe9-417c-a9b5-1772e09a3bdf)
+### Service user to Zitadel Project
 
 Give the service_user a role called "Project Owner Viewer Global".
 
-## Opensearch Add User to Role
+Add the new  "Service_User"  in the Authorizations section for the OpenSearch Project. 
+
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/5de876d7-bbe9-417c-a9b5-1772e09a3bdf)
+
+
+### Opensearch Add User to Role
 
 Adding user from Zitadel Project.
 
