@@ -22,7 +22,7 @@ NOTE: The Security plugin can read IdP metadata either from a URL or a file. In 
 ```
 vi /etc/opensearch/opensearch-security/config.yml
 ```
-Copy and paste this blank configuration under the *authc* section. In the documentation I placed it under basic_internal_auth_domain:.
+Copy and paste this blank configuration under the *authc* section. In this documentation I placed it under basic_internal_auth_domain:.
 
 When completed it should look like this, ensure all indents are correct and I have shown http_enabled: is set to true. 
 
