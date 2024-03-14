@@ -39,11 +39,11 @@ Under the Users section click "Service Users"
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/e1ee0971-ba45-41c3-a8ac-a5844e89722e)
 
 
-Copy the token from Zitadel service_user then paste it for the exchange_key section in the config.yml file.
+Copy the token from Zitadel service_user.
 
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/afaed1f4-f08e-4357-b695-d8b37e3603ed)
 
-Paste service_user token in the exchange_key section in the config.yml file.
+Paste service_user token from Zitadel to the exchange_key section in the config.yml file.
 
 ```
 vi /etc/opensearch/opensearch-security/config.yml
@@ -90,6 +90,7 @@ Add the following SAML settings in the config.yml file under *authc: saml_auth_d
 ### basic_internal_auth_domain Section
 
 Change the challenge flag in basic_internal_auth_domain section from true to false.
+
 Example:
 
 ```
@@ -136,7 +137,7 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_securi
 
 ### Execute Security Script 
 
-This will apply any configuration done from the steps above.
+This will apply the configuration from config.yml file.
 
 Change directory.
 
