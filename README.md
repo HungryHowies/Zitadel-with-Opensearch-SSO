@@ -43,6 +43,7 @@ Copy the token from Zitadel service_user then paste it for the exchange_key sect
 
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/afaed1f4-f08e-4357-b695-d8b37e3603ed)
 
+Add the new  "Service_User" in the Authorizations section for the Project. 
 
 ## Zitadels metadata URL
 
