@@ -23,21 +23,30 @@ NOTE: The Security plugin can read IdP metadata either from a URL or a file. In 
 vi /etc/opensearch/opensearch-security/config.yml
 ```
 
-### Configure section "authc"
+### Configure section "saml_auth_domain"
 
-Get the exchange_key from Zitadel using the endpoint **/saml/v2/metadata** on the Zitadel instances URL. 
-I found the correct key in Zitadel's XML is locate here.
+Get the exchange_key needed for OpenSearch, you need to create a service_user in Zitadel.
 
-```
-<DigestMethod xmlns="http://www.w3.org/2000/09/xmldsig#" 
-             Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-<DigestValue 
-xmlns="http://www.w3.org/2000/09/xmldsig#">8nZHHDNt2HUSETHISONEQPD01eCWS8NfSsmfBwBFQ=</DigestValue>
-     </Reference>
-</SignedInfo>
-```
+Login to Zitadel Dashboard then navigate to Organization --> Users.
 
-Zitadels metadata URL location.
+Under the Users section click "Service Users"
+
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/a37115d0-784c-429d-a0ea-3b522fc412a2)
+
+
+ When the Service User is completed, on the left pane click "Personal Access Tokens" and click "New".
+ 
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/e1ee0971-ba45-41c3-a8ac-a5844e89722e)
+
+
+Copy the token from Zitadel service_user then paste it for the exchange_key section in the config.yml file.
+
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/afaed1f4-f08e-4357-b695-d8b37e3603ed)
+
+
+## Zitadels metadata URL
+
+For the *metadata_url* and *entity_id* section, I used Zitadel metadata URL.
 
 ```
 https://zitadel-self-hosting.com/saml/v2/metadata
