@@ -129,6 +129,11 @@ The SAML-specific configuration is done with the  Security plugin,  activate SAM
 opensearch_security.auth.type: "saml"
 ```
 
+Add the Security Type. In this section Im using two type Basic and SAML.
+
+```
+opensearch_security.auth.type: ["basicauth","saml"]
+```
 Add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list.
 
 ```
