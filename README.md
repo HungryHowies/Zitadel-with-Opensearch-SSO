@@ -43,12 +43,19 @@ Copy the token from Zitadel service_user then paste it for the exchange_key sect
 
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/afaed1f4-f08e-4357-b695-d8b37e3603ed)
 
-Add the new  "Service_User" in the Authorizations section for the Project. 
+Paste service_user token in the exchange_key section in the config.yml file.
 
-![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/5de876d7-bbe9-417c-a9b5-1772e09a3bdf)
+```
+vi /etc/opensearch/opensearch-security/config.yml
+```
+Results:
+
+```
+exchange_key: AwqgAwIBAgICAY4wDQYJKoZIhvcNANjA2NT1UEChC0SOMETHING
+```
 
 
-## Zitadels metadata URL
+### Zitadels metadata URL
 
 For the *metadata_url* and *entity_id* section, I used Zitadel metadata URL.
 
@@ -56,7 +63,7 @@ For the *metadata_url* and *entity_id* section, I used Zitadel metadata URL.
 https://zitadel-self-hosting.com/saml/v2/metadata
 ```
 
-Add the following SAML settings in the config.yml file under *authc:*
+Add the following SAML settings in the config.yml file under *authc: saml_auth_domain*
 ```
   authc:
       saml_auth_domain:
@@ -79,6 +86,7 @@ Add the following SAML settings in the config.yml file under *authc:*
        authentication_backend:
           type: noop
   ```
+
 ### basic_internal_auth_domain Section
 
 Change the challenge flag in basic_internal_auth_domain section from true to false.
@@ -201,14 +209,15 @@ NOTE: I did add a section for LOGOUT as shown below.
 
 Click Continue, then create.
 
-Create a new user under the Project called "Opensearch".
+Add the new  "Service_User" in the Authorizations section for the Project. 
 
-![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/a0f6128d-0a24-4233-8ed4-7d5cb04ae7bb)
+![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/5de876d7-bbe9-417c-a9b5-1772e09a3bdf)
 
-
-Give the some.user a role called "Project Owner Viewer Global".
+Give the service_user a role called "Project Owner Viewer Global".
 
 ## Opensearch Add User to Role
+
+Adding user from Zitadel Project.
 
 Login to Opensearch with Default Admin credentials. 
 
@@ -216,7 +225,7 @@ Navigate to Security --> Roles.
 
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/3ca2c47f-8f76-4861-b5e8-2f0c0035a4cb)
 
- Add the user from Zitadel to a default Role or custom Role. 
+ Add the user from Zitadel to a default Role or custom Role in Opensearch. 
  
  **Example:** I added some.user from Zitadel to **all_access**. 
 
