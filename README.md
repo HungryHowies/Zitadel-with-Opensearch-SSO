@@ -22,7 +22,31 @@ NOTE: The Security plugin can read IdP metadata either from a URL or a file. In 
 ```
 vi /etc/opensearch/opensearch-security/config.yml
 ```
+Copy and paste this blank configuration under the *authc* section. In the documentation I placed it under basic_internal_auth_domain:.
 
+When completed it should look like this, ensure all indents are correct and I have shown http_enabled: is set to true. 
+
+```
+saml_auth_domain:
+        http_enabled: true
+        transport_enabled: false
+        order: 1
+        http_authenticator:
+          type: saml
+          challenge: false
+          config:
+            idp:
+              metadata_url: 
+              entity_id: 
+            sp:
+              entity_id: 
+            kibana_url: 
+            subject_key: 
+            roles_key: Role
+            exchange_key:             
+        authentication_backend:
+          type: noop
+```
 ### Configure section "saml_auth_domain"
 
 Get the exchange_key needed for OpenSearch, you need to create a service_user in Zitadel.
@@ -64,6 +88,9 @@ https://zitadel-self-hosting.com/saml/v2/metadata
 ```
 
 Add the following SAML settings in the config.yml file under *authc: saml_auth_domain*
+
+The completed saml configuration is shown below.
+
 ```
   authc:
       saml_auth_domain:
