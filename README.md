@@ -13,7 +13,7 @@
 * Zitadel-v2.44.2 +
 * JAVA_HOME is set
 
-To use SAML for authentication, configurations are needed in the **authc** section of this file  *vi /etc/opensearch/opensearch-security/config.yml*. Setup authentication_backend to noop. Place all SAML-specific configuration options in config.yml file, under the section *saml_auth_domain:*. Ensure the order number is correct. In the example below the saml_auth_domain ORDER is set to 1 and basic_internal_auth_domain is set to "0". The  basic_internal_auth_domain challenge is set from true to false.
+To use SAML for authentication, configurations are needed in the **authc** section of this file  ```vi /etc/opensearch/opensearch-security/config.yml```. Setup authentication_backend to noop. Place all SAML-specific configuration options in config.yml file, under the section *saml_auth_domain:*. Ensure the order number is correct. In the example below the saml_auth_domain ORDER is set to 1 and basic_internal_auth_domain is set to "0". The  basic_internal_auth_domain challenge is set from true to false.
 
 
 NOTE: The Security plugin can read IdP metadata either from a URL or a file. In this example Im using URL.
