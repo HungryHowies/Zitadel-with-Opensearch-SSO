@@ -309,10 +309,19 @@ const redirectUrl = `${this.coreSetup.http.basePath.serverBasePath}/app/home`;
 Results:
 
 ![image](https://github.com/HungryHowies/Zitadel-with-Opensearch-SSO/assets/22652276/fc0f0851-5ac2-4010-988b-4560ce2c210d)
- 
 
- 
+### Additional Notes:
 
+when using  OpenID Coonect and recieving a 401 or *Empty file path for plugins.security.ssl.transport.truststore_filepath*
+* pemtrustedcas_filepath requires a CA that was used to sign your IdP’s certificate.
+  
+The certificate that the security plugin refers to is the one configured at the HTTPS endpoint of the IdP. 
+You can check that by running the below command.
+ 
+```
+openssl s_client -connect zitadel-build.domain.com:443
+```
+Copied the certificate from openssl and pasted it in there
   
  
 
