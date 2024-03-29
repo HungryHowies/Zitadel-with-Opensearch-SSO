@@ -312,7 +312,8 @@ Results:
 
 ### Additional Notes:
 
-when using  OpenID Coonect and recieving a 401 or *Empty file path for plugins.security.ssl.transport.truststore_filepath*
+When using OpenID Connect and recieving a 401 or *Empty file path for plugins.security.ssl.transport.truststore_filepath*
+
 * pemtrustedcas_filepath requires a CA that was used to sign your IdP’s certificate.
   
 The certificate that the security plugin refers to is the one configured at the HTTPS endpoint of the IdP. 
