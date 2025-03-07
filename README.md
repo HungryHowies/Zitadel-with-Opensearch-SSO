@@ -323,7 +323,37 @@ You can check that by running the below command.
 openssl s_client -connect zitadel-build.domain.com:443
 ```
 Copied the certificate from openssl and pasted it in there
-  
+
+ Applying SSO IDP user to all_access role canbe done  like this.
+ NOTE:  ensure admin user is also added or admin will be removed from all_access
+ Check role and users.
+
+ ```
+GET _plugins/_security/api/rolesmapping
+```
+
+Apply users to all access.
+```
+PUT _plugins/_security/api/rolesmapping/all_access
+{
+  "users": [
+    "some.user@localhost.local",
+    "joe.user@localhost.local",
+    "admin"
+  ]
+}
+```
+NOTE: adding  a new user.
+```
+curl -X PUT -H "Content-Type: application/json" -u <admin_username>:<admin_password> \
+
+"http://<opensearch_host>:<opensearch_port>/_security/user/newuser" \
+
+-d '{"roles": ["all_access"]}'
+```
+
+
+
  
 
 
